@@ -1,0 +1,49 @@
+What is container?
+
+Container is an isolated environment where our applications (or microservice) run having all the dependencies they need attached with them.
+-Zero interference
+-Required resources and restricted access
+
+Docker - Creating containers
+Application containerization
+
+Kubernetes - Maintains communication between containers.
+K8s - container orchestrator
+
+K8s contains:-
+Container
+Pods - Pod is a collection of relative containers
+Nodes - Node is a collection of CPU and RAM. A machine is a node for us regardless of its type.
+Cluster - A group of nodes. We pool the resources of nodes to aggregate the CPU power and RAM
+
+Rancher handles Multi-cloud computing or handles multiple clusters
+Rancher - Kubernetes Management Platform
+Rancher can also be used to manage Docker Swarm, Mesos(Marathon) as well as Cattle containers.
+
+Docker Swarm <-> Kubernetes <->Mesos
+
+Docker Machine <-> Rancher
+
+1. Rancher is 100% open source
+2. 
+
+DC/OS - Datacenter Operating System
+DC/OS is a distributed operating system based on Apache Mesos (distributed systems kernel)
+DC/OS enables the management of multiple machines as if they were a single machine
+-Resource management
+-Process scheduling
+-Inter-process communication
+-Simplifies installation and mgmt of distributed services
+
+
+
+
+
+
+
+
+
+
+
+
+
