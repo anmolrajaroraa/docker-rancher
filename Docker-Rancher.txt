@@ -46,4 +46,5 @@ DC/OS enables the management of multiple machines as if they were a single machi
 
 
 
-
+Please take this survey :)
+https://goo.gl/forms/33Exx576vi2r1dSd2
