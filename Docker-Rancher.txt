@@ -7,6 +7,10 @@ Container is an isolated environment where our applications (or microservice) ru
 Docker - Creating containers
 Application containerization
 
+Docker Hub - Public Registry for images
+Images - Template-like things used to create containers
+Docker Registry - Private repository
+
 Kubernetes - Maintains communication between containers.
 K8s - container orchestrator
 
@@ -25,7 +29,12 @@ Docker Swarm <-> Kubernetes <->Mesos
 Docker Machine <-> Rancher
 
 1. Rancher is 100% open source
-2. 
+2. Multi-cluster mgmt
+3. Unified operations
+4. Centralized policy mgmt
+5. Authetication and RBAC, LDAP and Active Directories
+6. UI
+7. Integrated tooling
 
 DC/OS - Datacenter Operating System
 DC/OS is a distributed operating system based on Apache Mesos (distributed systems kernel)
@@ -35,7 +44,38 @@ DC/OS enables the management of multiple machines as if they were a single machi
 -Inter-process communication
 -Simplifies installation and mgmt of distributed services
 
+Cisco, Yelp, Tommy Hilfiger,Uber, Netflix, Verizon
 
+
+Command to install Rancher on Digital Ocean:-
+
+#!/bin/bash
+
+docker run -d --restart=always -p 8080:8080 rancher/server 
+
+
+Steps to install rancher on aws
+1. Create a free tier account
+2. Set a budget
+3. Launch EC2 instance
+4. Select Ubuntu (free tier eligible) as AMI for virtual machine
+5. Select t2.micro as instance type
+6. Configure instance > Advanced details > user data :-
+#!/bin/bash
+
+wget -qO- https://get.docker.com/ | sh
+docker run -d --restart=always -p 8080:8080 rancher/server
+
+7. Configure security group > Add rules
+TCP port 22, 80, 443, 8080
+UDP port 500, 4500
+
+8. Launch > Create key pair > Download .pem file > Launch instance
+
+9. Go to EC2 console. Wait for the machine to start running.
+
+10. Don't forget to terminate machine if you were working in dev env
+Delete key pair and security group as well from ec2 dashboard
 
 
 
