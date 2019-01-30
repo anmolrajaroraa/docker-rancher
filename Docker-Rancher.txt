@@ -19,14 +19,22 @@ Container
 Pods - Pod is a collection of relative containers
 Nodes - Node is a collection of CPU and RAM. A machine is a node for us regardless of its type.
 Cluster - A group of nodes. We pool the resources of nodes to aggregate the CPU power and RAM
+K8s performs scheduling, scaling, service discovery, health checkup, secret management, configuration management
+
+K8s contains:-
+etcd database - key-value store
+master node(s) - stateless node which actually runs scheduler, controllers and the API server
+worker nodes - application runs here
 
 Rancher handles Multi-cloud computing or handles multiple clusters
 Rancher - Kubernetes Management Platform
-Rancher can also be used to manage Docker Swarm, Mesos(Marathon) as well as Cattle containers.
+Rancher was able to manage Docker Swarm, Mesos(Marathon) as well as Cattle containers.
+Nowadays, only K8s and cattle is supported
+Rancher API - Management server (cluster controller) + worker hosts (cluster agent)
+Worker hosts can create, modify and delete containers
+Management server can modify services
 
 Docker Swarm <-> Kubernetes <->Mesos
-
-Docker Machine <-> Rancher
 
 1. Rancher is 100% open source
 2. Multi-cluster mgmt
@@ -74,9 +82,21 @@ UDP port 500, 4500
 
 9. Go to EC2 console. Wait for the machine to start running.
 
-10. Don't forget to terminate machine if you were working in dev env
-Delete key pair and security group as well from ec2 dashboard
+10. Go to the public ip address of instance
+http://ec2-3-83-103-135.compute-1.amazonaws.com:8080
 
+11. To launch a worker host on aws using rancher UI,
+-Create an IAM user and get hold of secondary userid and password
+-Check the box of programmatic access
+-On permissions page, attach existing policies > Find AmazonEC2FullAcces > Create user
+-Copy paste your access key id and secret key to Rancher UI
+-Authenticate and select a network
+-Select vpc as network
+-Select rancher-machine as the security group
+
+
+Note -> Don't forget to terminate machine if you were working in dev env
+Delete key pair and security group as well from ec2 dashboard
 
 
 
