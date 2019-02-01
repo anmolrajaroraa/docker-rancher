@@ -34,6 +34,20 @@ Rancher API - Management server (cluster controller) + worker hosts (cluster age
 Worker hosts can create, modify and delete containers
 Management server can modify services
 
+Rancher API server has been built on top of K8s API and etcd database
+-User management
+-Authorization
+-Projects
+-Node Tracking
+
+Cluster Controller
+It implements business logic to manage K8s.
+- Implementing logic for global Rancher install
+- Implementing logic for separate clusters
+
+Authentication Proxy
+
+
 Docker Swarm <-> Kubernetes <->Mesos
 
 1. Rancher is 100% open source
@@ -97,6 +111,47 @@ http://ec2-3-83-103-135.compute-1.amazonaws.com:8080
 
 Note -> Don't forget to terminate machine if you were working in dev env
 Delete key pair and security group as well from ec2 dashboard
+
+
+For using RancherOS:-
+1. Install Docker Toolbox
+2. Open Docker CLI
+3. Create a VM having RancherOS as guestOS
+docker-machine create -d virtualbox --virtualbox-boot2docker-url https://releases.rancher.com/os/latest/rancheros.iso --virtualbox-memory 2048 <machine-name>
+4. Create a connection from docker CLI to VM
+docker-machine ssh <machine-name>
+Check the version of rancheros -> sudo ros -v
+5. Check the system containers
+sudo system-docker ps
+6. Run your own container on Docker
+docker run -d nginx
+7. Check the container 
+docker ps
+8. Run a system services container
+sudo system-docker run -d --net=host --name busydash husseingalal/busydash
+sudo system-docker ps
+Press Ctrl+D
+docker-machine ip machine1
+Go to browser and paste ip address -> Linux dash will load
+9. Switch your console
+sudo ros console switch ubuntu
+sudo system-docker ps
+10. Direct your CLI towards Docker Daemon of VM
+eval $(docker-machine env machine1)
+
+
+To list running VMs-
+docker-machine ls
+To stop a VM-
+docker machine kill <machine-name>
+To remove a VM-
+docker-machine rm <machine-name>
+To see build logs for rancher server-
+docker run -d --name myrancher --restart=always -p 8080:8080 rancher/server
+sudo docker logs -f myrancher
+
+
+
 
 
 
