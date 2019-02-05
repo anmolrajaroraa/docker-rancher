@@ -86,7 +86,8 @@ Steps to install rancher on aws
 #!/bin/bash
 
 wget -qO- https://get.docker.com/ | sh
-docker run -d --restart=always -p 8080:8080 rancher/server
+docker run -d --name <application-name> --restart=always -p 8080:8080 rancher/server:stable
+docker logs -f <application-name>
 
 7. Configure security group > Add rules
 TCP port 22, 80, 443, 8080
@@ -149,9 +150,33 @@ docker-machine rm <machine-name>
 To see build logs for rancher server-
 docker run -d --name myrancher --restart=always -p 8080:8080 rancher/server
 sudo docker logs -f myrancher
+To check the version:-
+docker --version
+To remove docker completely:-
+sudo apt-get purge docker-ce
+sudo rm -rf var/lib/docker
+To remove image
+sudo docker rmi <image-id>
+To interact with your container:-
+sudo docker run -it --rm <image>
+To check running containers:
+docker ps
+To check all the containers
+docker ps -a
 
-
-
+Creating your own image
+1. Create a container
+- sudo docker run -it debian:jessie
+2. Install git
+- git
+- apt-get update && apt-get install -y git
+3. Create image from your container
+- exit
+- docker images
+- docker commit <name-of-image> myimage:v0.2.0
+- docker images
+4. Create another container using your image
+- sudo docker run -it myimage:v0.2.0
 
 
 
