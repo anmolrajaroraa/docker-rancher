@@ -1,3 +1,4 @@
+
 What is container?
 
 Container is an isolated environment where our applications (or microservice) run having all the dependencies they need attached with them.
@@ -85,9 +86,12 @@ Steps to install rancher on aws
 6. Configure instance > Advanced details > user data :-
 #!/bin/bash
 
-wget -qO- https://get.docker.com/ | sh
+(wget -qO- https://get.docker.com/ | sh) or (curl https://releases.rancher.com/install-docker/18.03.sh | sh)
+
 docker run -d --name <application-name> --restart=always -p 8080:8080 rancher/server:stable
+
 docker logs -f <application-name>
+
 
 7. Configure security group > Add rules
 TCP port 22, 80, 443, 8080
@@ -179,8 +183,49 @@ Creating your own image
 - sudo docker run -it myimage:v0.2.0
 
 
+Create a container on Rancher-agent or worker host using Docker CLI -
+docker run -d --name=new-container ubuntu:14.04.3
+To make your container part of managed overlay network
+docker run -d io.rancher.container.network=true ubuntu:14.04.3
+
+Rancher CLI is multi-host version of Docker Compose
+Docker Compose performs actions using .yml files
+Using Rancher CLI-
+To configure ,
+-	rancher config
+	URL []: http://ec2-13-233-86-86.ap-south-1.compute.amazonaws.com:8080
+	Access Key []: CB8FC3374D1E203CC63A
+	Secret Key []: 75ruKzgwtm48P2nbNcLttgCKyEQicPKk3j8vgMNT
+	[34mINFO[0m[0162] Saving config to /.rancher/cli.json
+
+-	export RANCHER_URL = http://ec2-13-233-86-86.ap-south-1.compute.amazonaws.com:8080
+	export RANCHER_ACCESS_KEY = CB8FC3374D1E203CC63A
+	export RACNHER_SECRET_KEY = 75ruKzgwtm48P2nbNcLttgCKyEQicPKk3j8vgMNT
+
+-	curl -u "${RANCHER_ACCESS_KEY}:${RANCHER_SECRET_KEY}" \
+	-X POST \
+	-H 'Content-Type: application/json' \
+	-d '{
+		"attachStdin": true,
+		"attachStdout": true,
+		"command": [
+			"string1",
+			"...stringN"
+		],
+		"tty": true
+	}' 'http://${RANCHER_URL}:8080/v2-beta/projects/${PROJECT_ID}/containers/${ID}?action=execute'
+
+-	rancher-compose --url http://<server-ip>:8080 --access-key <access-key> --secret-key <secret-key>
 
 
+
+
+
+https://rancher.com/docs/rancher/v1.5/en/api/v1/api-resources/host/#create
+
+rancher up <name-of-yml-file> <name-of-second-yml-file>
+rancher stop <name-of-yml-file>
+rancher rm <name-of-yml-file>
 
 
 
